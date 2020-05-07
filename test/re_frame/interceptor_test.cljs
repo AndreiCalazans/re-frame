@@ -4,7 +4,8 @@
             [re-frame.interceptor :refer [context get-coeffect assoc-effect assoc-coeffect get-effect update-coeffect update-effect]]
             [re-frame.std-interceptors :refer [debug trim-v path enrich after on-changes
                                                db-handler->interceptor fx-handler->interceptor]]
-            [re-frame.interceptor :as interceptor]))
+            [re-frame.interceptor :as interceptor]
+            [re-frame.core :refer [reg-global-interceptor clear-global-interceptor]]))
 
 (enable-console-print!)
 
@@ -40,7 +41,7 @@
         p  (path [:1 :2])]    ;; a two level path
 
     (let [b4 (-> (context [] [] db)
-                ((:before p))) ]          ;; before
+                ((:before p)))]          ;; before
 
       (is (= (get-coeffect b4 :db))      ;; test before
           :target)
